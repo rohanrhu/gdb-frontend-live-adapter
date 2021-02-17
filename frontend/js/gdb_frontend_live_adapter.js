@@ -12,10 +12,10 @@
 $(document).ready(function () {
     GDBFrontend.components.gdbFrontend.openSource({file: {path: GDBFrontend.config.workdir+'/main.c'}});
     GDBFrontend.components.gdbFrontend.$gdbFrontend_load_loadBtn.hide();
-    GDBFrontend.components.gdbFrontend.$GDBFrontend_load_connectBtn.hide();
+    GDBFrontend.components.gdbFrontend.$gdbFrontend_load_connectBtn.hide();
     
-    GDBFrontend.components.gdbFrontend.$GDBFrontend_runtimeControls_btn__run.off('click.GDBFrontend');
-    GDBFrontend.components.gdbFrontend.$GDBFrontend_runtimeControls_btn__run.on('click.GDBFrontend', function (event) {
+    GDBFrontend.components.gdbFrontend.$gdbFrontend_runtimeControls_btn__run.off('click.GDBFrontend');
+    GDBFrontend.components.gdbFrontend.$gdbFrontend_runtimeControls_btn__run.on('click.GDBFrontend', function (event) {
         $.ajax({
             url: '/gdb-frontend-live-adapter/build',
             cache: false,
