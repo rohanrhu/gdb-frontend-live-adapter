@@ -30,7 +30,10 @@ def run(request, params):
         executable = ".".join(source.split("/")[-1].split(".")[:-1])
         executable = "/".join(source.split("/")[:-1]) + "/" + executable
         
-        os.system("gcc -o " + executable + " " + source + " -g")
+        exit_code = os.system("gcc -o " + executable + " " + source + " -g -lm")
+
+        if exit_code != 0:
+            globals()["gflive_gdb_executable"] = False
 
         if "gflive_gdb_executable" not in globals() or globals()["gflive_gdb_executable"] != executable:
             print("[GDBFrontendLive]", "Loading executable.")
@@ -39,8 +42,8 @@ def run(request, params):
 
             api.debug.load(executable)
 
-            if "break" in qs_params:
-                api.debug.addBreakpoint(source, int(qs_params["break"][0]))
+        if "break" in qs_params:
+            api.debug.addBreakpoint(source, int(qs_params["break"][0]))
 
         result_json["executable"] = executable
     except:
