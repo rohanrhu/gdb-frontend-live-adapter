@@ -17,14 +17,13 @@ $(document).ready(function () {
     GDBFrontend.components.gdbFrontend.$gdbFrontend_runtimeControls_btn__run.off('click.GDBFrontend');
     GDBFrontend.components.gdbFrontend.$gdbFrontend_runtimeControls_btn__run.on('click.GDBFrontend', function (event) {
         $.ajax({
-            url: '/gdb-frontend-live-adapter/build',
+            url: '/gf/'+GDBFrontend.config.http_port+'/gdb-frontend-live-adapter/build',
             cache: false,
             method: 'get',
             data: {
                 source: GDBFrontend.config.workdir+'/main.c',
-                break: 20
             },
-            success: function (result_json) {
+            success: async function (result_json) {
                 if (!result_json.ok) {
                     GDBFrontend.showMessageBox({text: 'An error occured.'});
                     console.trace('An error occured.');
@@ -32,7 +31,7 @@ $(document).ready(function () {
                 }
                 
                 $.ajax({
-                    url: '/api/runtime/run',
+                    url: '/gf/'+GDBFrontend.config.http_port+'/api/runtime/run',
                     cache: false,
                     method: 'get',
                     data: {
