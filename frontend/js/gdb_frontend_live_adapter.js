@@ -15,7 +15,25 @@ $(document).ready(function () {
     GDBFrontend.components.gdbFrontend.$gdbFrontend_load_connectBtn.hide();
     
     GDBFrontend.components.gdbFrontend.$gdbFrontend_runtimeControls_btn__run.off('click.GDBFrontend');
-    GDBFrontend.components.gdbFrontend.$gdbFrontend_runtimeControls_btn__run.on('click.GDBFrontend', function (event) {
+    GDBFrontend.components.gdbFrontend.$gdbFrontend_runtimeControls_btn__run.on('click.GDBFrontend', async function (event) {
+        for (var i=0; i < GDBFrontend.components.gdbFrontend.components.fileTabs.files.length; i++) {
+            var _file = GDBFrontend.components.gdbFrontend.components.fileTabs.files[i];
+
+            if (
+                !_file.path
+                ||
+                (
+                    (_file.disassembly !== undefined)
+                    &&
+                    (parameters.disassembly !== undefined)
+                )
+            ) {
+                continue;
+            }
+
+            await _file.save();
+        }
+        
         $.ajax({
             url: '/gf/'+GDBFrontend.config.http_port+'/gdb-frontend-live-adapter/build',
             cache: false,
