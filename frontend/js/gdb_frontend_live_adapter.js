@@ -35,7 +35,7 @@ $(document).ready(function () {
         }
         
         $.ajax({
-            url: '/gf/'+GDBFrontend.config.http_port+'/gdb-frontend-live-adapter/build',
+            url: 'gdb-frontend-live-adapter/build',
             cache: false,
             method: 'get',
             data: {
@@ -49,7 +49,7 @@ $(document).ready(function () {
                 }
                 
                 $.ajax({
-                    url: '/gf/'+GDBFrontend.config.http_port+'/api/runtime/run',
+                    url: 'api/runtime/run',
                     cache: false,
                     method: 'get',
                     data: {
